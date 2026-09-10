@@ -25,16 +25,16 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white border border-zinc-200 rounded-3xl p-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-zinc-900 text-center mb-6">Create Account</h2>
+    <div className="min-h-[85vh] flex items-center justify-center px-4 bg-[#fbf9f5]">
+      <div className="max-w-md w-full bg-white border border-zinc-200/80 rounded-3xl p-8 shadow-sm">
+        <h2 className="text-2xl font-black text-zinc-900 text-center mb-6">Create Account</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="text-xs font-semibold text-zinc-600">Full Name</label>
             <input
               type="text"
               required
-              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500"
+              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
@@ -44,7 +44,7 @@ const Register = () => {
             <input
               type="email"
               required
-              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500"
+              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
@@ -54,7 +54,7 @@ const Register = () => {
             <input
               type="password"
               required
-              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500"
+              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             />
@@ -64,17 +64,23 @@ const Register = () => {
             <input
               type="password"
               required
-              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-amber-500"
+              className="w-full mt-1 border border-zinc-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700"
               value={formData.confirmPassword}
               onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
             />
           </div>
-          <button type="submit" className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm shadow-sm transition">
+          <button
+            type="submit"
+            className="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-semibold py-2.5 rounded-xl text-sm shadow-sm transition-colors"
+          >
             Sign Up
           </button>
         </form>
         <p className="text-center text-xs text-zinc-500 mt-4">
-          Have an account? <Link to="/login" className="text-amber-600 font-semibold hover:underline">Log in</Link>
+          Already have an account?{' '}
+          <Link to="/login" className="text-emerald-700 font-semibold hover:underline">
+            Log in
+          </Link>
         </p>
       </div>
     </div>
