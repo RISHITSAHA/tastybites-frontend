@@ -107,7 +107,7 @@ const AdminDashboard = () => {
                 <option value="Dessert">Dessert</option>
                 <option value="Beverage">Beverage</option>
               </select>
-              <input type="number" placeholder="Price ($)" required value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} className="border p-2 rounded-xl text-xs" />
+              <input type="number" placeholder="Price (₹)" required value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} className="border p-2 rounded-xl text-xs" />
             </div>
             <input type="file" accept="image/*" required onChange={e => setImageFile(e.target.files[0])} className="w-full text-xs text-zinc-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:bg-zinc-100" />
             <button type="submit" disabled={isSubmitting} className="w-full bg-amber-600 text-white font-semibold py-2 rounded-xl text-xs">{isSubmitting ? 'Uploading...' : 'Save Item'}</button>
@@ -120,7 +120,7 @@ const AdminDashboard = () => {
                 <tr key={it._id}>
                   <td className="p-3 flex items-center gap-3"><img src={it.image} className="w-10 h-10 rounded-lg object-cover" /> <span className="font-semibold">{it.name}</span></td>
                   <td className="p-3 text-zinc-500">{it.category}</td>
-                  <td className="p-3 font-bold">${it.price.toFixed(2)}</td>
+                  <td className="p-3 font-bold">₹{it.price}</td>
                   <td className="p-3"><button onClick={() => handleDeleteItem(it._id)} className="text-rose-600 hover:text-rose-800"><Trash2 className="w-4 h-4" /></button></td>
                 </tr>
               ))}</tbody>
