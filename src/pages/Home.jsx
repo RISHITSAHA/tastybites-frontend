@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ArrowRight, MapPin } from 'lucide-react';
+import { Search, ArrowRight, Sparkles } from 'lucide-react';
 import API from '../api/axios';
 
 const categories = ['All', 'Starter', 'Main Course', 'Dessert', 'Beverage'];
@@ -28,84 +28,119 @@ const Home = () => {
   }, [search, category]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fbf9f5]">
-      <div className="flex-1 max-w-7xl mx-auto px-4 py-8 w-full">
-        {/* Search */}
-        <div className="flex justify-center mb-6">
-          <div className="relative w-full max-w-lg">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-4 top-3.5" />
+    <div className="min-h-screen bg-[#061e14] text-zinc-100 flex flex-col selection:bg-emerald-500 selection:text-white">
+      {/* Top Banner / Header Header */}
+      <div className="relative pt-12 pb-8 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[250px] bg-emerald-500/10 blur-[120px] pointer-events-none rounded-full" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-900/50 border border-emerald-700/40 text-emerald-300 text-xs font-semibold tracking-wider uppercase">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Curated Culinary Collection</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
+            Our Handcrafted <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Menu</span>
+          </h1>
+          <p className="text-zinc-400 text-sm max-w-xl mx-auto">
+            From slow-cooked royal delicacies to freshly shaken beverages, discover the perfect dish for your palate.
+          </p>
+        </div>
+      </div>
+
+      {/* Filter & Search Controls */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mb-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-5 bg-zinc-900/60 border border-zinc-800/80 p-3.5 rounded-2xl backdrop-blur-md">
+          {/* Search Box */}
+          <div className="relative w-full md:w-80">
+            <Search className="w-4 h-4 text-zinc-400 absolute left-4 top-3" />
             <input
               type="text"
               placeholder="Search for a dish..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-white border border-zinc-200 pl-11 pr-4 py-2.5 rounded-full text-sm outline-none focus:ring-2 focus:ring-emerald-700 shadow-xs"
+              className="w-full bg-zinc-950/80 border border-zinc-800 text-white pl-10 pr-4 py-2 rounded-xl text-xs sm:text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
             />
           </div>
-        </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex justify-center items-center gap-2 overflow-x-auto pb-6">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setCategory(cat)}
-              className={`px-5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
-                category === cat
-                  ? 'bg-emerald-800 text-white shadow-xs'
-                  : 'bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-50'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {/* Category Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                  category === cat
+                    ? 'bg-emerald-500 text-zinc-950 font-bold shadow-md shadow-emerald-950'
+                    : 'bg-zinc-950/60 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
+      </div>
 
-        {/* Menu Cards */}
+      {/* Grid of Dishes */}
+      <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-24">
         {loading ? (
-          <div className="text-center py-20 text-sm text-zinc-400">Loading delicious dishes...</div>
+          <div className="text-center py-24 text-sm text-zinc-500">Preparing dishes catalog...</div>
         ) : items.length === 0 ? (
-          <div className="text-center py-20 text-sm text-zinc-500">
-            No dishes found. Log in as admin to add some!
+          <div className="text-center py-24 text-sm text-zinc-400 bg-zinc-900/30 border border-zinc-800 rounded-3xl p-12">
+            No culinary items found matching your filters.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {items.map((item) => (
               <div
                 key={item._id}
-                className="bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
+                className="group bg-zinc-900/70 border border-zinc-800/90 rounded-2xl overflow-hidden hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-950/30"
               >
-                <div className="relative h-48 w-full overflow-hidden bg-zinc-100">
-                  <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-zinc-700 text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-xs">
+                {/* Image Section with Badges */}
+                <div className="relative h-48 w-full overflow-hidden bg-zinc-950">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent" />
+                  
+                  {/* Category Pill */}
+                  <span className="absolute top-3 left-3 bg-zinc-950/80 backdrop-blur-md text-emerald-300 text-[11px] font-semibold px-3 py-1 rounded-full border border-emerald-900/50">
                     {item.category}
                   </span>
+
+                  {/* Availability Badge */}
                   <span
-                    className={`absolute top-3 right-3 text-[11px] font-semibold px-2.5 py-1 rounded-full shadow-xs backdrop-blur-xs ${
+                    className={`absolute top-3 right-3 text-[11px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-md ${
                       item.availability
-                        ? 'bg-emerald-100/90 text-emerald-800'
-                        : 'bg-rose-100/90 text-rose-800'
+                        ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800'
+                        : 'bg-rose-950/80 text-rose-400 border border-rose-800'
                     }`}
                   >
                     {item.availability ? 'Available' : 'Unavailable'}
                   </span>
                 </div>
 
-                <div className="p-4 flex flex-col justify-between flex-1">
+                {/* Content Section */}
+                <div className="p-5 flex flex-col justify-between flex-1 text-left">
                   <div>
-                    <h3 className="font-bold text-zinc-900 text-base line-clamp-1">{item.name}</h3>
-                    <p className="text-xs text-zinc-500 mt-1 line-clamp-2 leading-relaxed">
+                    <h3 className="font-bold text-white text-base line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                      {item.name}
+                    </h3>
+                    <p className="text-xs text-zinc-400 mt-1.5 line-clamp-2 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between">
-                    <span className="text-base font-extrabold text-emerald-800">
+                  {/* Bottom Strip: Price & Link */}
+                  <div className="mt-5 pt-3.5 border-t border-zinc-800/80 flex items-center justify-between">
+                    <span className="text-lg font-black text-white tracking-tight">
                       ₹{item.price}
                     </span>
                     <Link
                       to={`/menu/${item._id}`}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-700 hover:text-emerald-800 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors group-hover:translate-x-0.5 duration-200"
                     >
                       View Details
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -117,46 +152,6 @@ const Home = () => {
           </div>
         )}
       </div>
-
-      {/* Footer */}
-      <footer className="bg-slate-950 text-zinc-400 py-12 border-t border-slate-800 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-white text-lg font-black tracking-tight mb-2">
-              Tasty<span className="text-emerald-500">Bites</span>
-            </h3>
-            <p className="text-xs leading-relaxed text-zinc-400">
-              Delicious food, made with care. Explore our menu and discover something you'll love.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-3">Quick Links</h4>
-            <ul className="space-y-2 text-xs">
-              <li><Link to="/" className="hover:text-emerald-400">Home</Link></li>
-              <li><Link to="/menu" className="hover:text-emerald-400">Menu</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-3">Menu Categories</h4>
-            <ul className="space-y-2 text-xs">
-              <li>Starters</li>
-              <li>Main Course</li>
-              <li>Desserts</li>
-              <li>Beverages</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-3">Contact Us</h4>
-            <div className="flex items-center gap-2 text-xs">
-              <MapPin className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Kolkata, West Bengal</span>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

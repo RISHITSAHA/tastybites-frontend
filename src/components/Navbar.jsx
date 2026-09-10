@@ -1,19 +1,13 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { UtensilsCrossed, LogOut, User, LayoutDashboard } from 'lucide-react';
 
 const Navbar = () => {
   const { user, isAdmin, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const isLanding = location.pathname === '/';
 
   return (
-    <header className={`sticky top-0 z-50 transition-colors backdrop-blur-md border-b ${
-      isLanding 
-        ? 'bg-[#061e14]/90 border-emerald-950 text-white' 
-        : 'bg-white/90 border-zinc-200 text-zinc-900'
-    }`}>
+    <header className="sticky top-0 z-50 bg-[#061e14]/90 backdrop-blur-md border-b border-emerald-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand */}
         <Link to="/" className="flex items-center gap-2 text-xl font-black tracking-tight">
@@ -23,20 +17,10 @@ const Navbar = () => {
 
         {/* Navigation */}
         <nav className="flex items-center gap-6">
-          <Link 
-            to="/" 
-            className={`text-sm font-semibold transition ${
-              isLanding ? 'text-zinc-300 hover:text-white' : 'text-zinc-700 hover:text-emerald-700'
-            }`}
-          >
+          <Link to="/" className="text-sm font-semibold text-zinc-300 hover:text-white transition">
             Home
           </Link>
-          <Link 
-            to="/menu" 
-            className={`text-sm font-semibold transition ${
-              isLanding ? 'text-zinc-300 hover:text-white' : 'text-zinc-700 hover:text-emerald-700'
-            }`}
-          >
+          <Link to="/menu" className="text-sm font-semibold text-zinc-300 hover:text-white transition">
             Menu
           </Link>
 
@@ -65,12 +49,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="flex items-center gap-2.5">
-              <Link 
-                to="/login" 
-                className={`text-sm font-semibold px-3 py-1.5 ${
-                  isLanding ? 'text-zinc-300 hover:text-white' : 'text-zinc-700 hover:text-emerald-700'
-                }`}
-              >
+              <Link to="/login" className="text-sm font-semibold text-zinc-300 hover:text-white px-3 py-1.5 transition">
                 Login
               </Link>
               <Link 
